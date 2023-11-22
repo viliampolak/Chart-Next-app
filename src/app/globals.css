@@ -18,10 +18,14 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background:rgb(var(--background-start-rgb));
 }
+
+
+/*
+#0369a1 - sky-700
+#075985 - sky-800
+#2563eb - blue-600
+#082F49 - sky-950
+#3f3f46 - zinc-700
+*/
