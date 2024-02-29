@@ -1,8 +1,8 @@
 'use client'
-import TestChart from "../../components/Chart"
-import { getJsonData } from '../../../data/data-handler';
-import AddDatasetForm from "../../components/AddDatasetForm"
-import DatasetsList from "../../components/DatasetsList"
+import TestChart from "@components/Chart"
+import { getMongoData } from '@data/data-handler';
+import AddDatasetForm from "@components/AddDatasetForm"
+import DatasetsList from "@components/DatasetsList"
 import { useEffect, useState } from "react";
 
 type Dataset = {
@@ -68,7 +68,7 @@ export default function CompareChart() {
         const fetchData = async (p: string) => {
             const [thing,radio,from,to,color] = p.split(",")
             console.log(p)
-            const data = await getJsonData(thing, from, to, radio) // TODO aby sa mohli zadata hocijake casy
+            const data = await getMongoData(thing, from, to, radio) // TODO aby sa mohli zadata hocijake casy
             console.log(data)
 
             setDatasets([...datasets, {label: thing, data: data, borderColor: color, backgroundColor: color}])//TODO kvoli labels pridat casi k zaznamom

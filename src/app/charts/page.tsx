@@ -1,11 +1,11 @@
 import Image from 'next/image';
-import temperaturepic from "../../../pictures/temperature.png"
-import humiditypic from "../../../pictures/humidity.png"
-import carbondioxidepic from "../../../pictures/carbon-dioxide.png"
-import pressurepic from "../../../pictures/pressure.png"
-import vocpic from "../../../pictures/VOC.png"
-import pm25pic from "../../../pictures/pm25.png"
-import { getConfigData } from '../../../data/data-handler';
+import temperaturepic from "@pictures/temperature.png"
+import humiditypic from "@pictures/humidity.png"
+import carbondioxidepic from "@pictures/carbon-dioxide.png"
+import pressurepic from "@pictures/pressure.png"
+import vocpic from "@pictures/VOC.png"
+import pm25pic from "@pictures/pm25.png"
+import { getConfigData, getMongoData } from '@data/data-handler';
 
 
 
@@ -14,6 +14,7 @@ import { getConfigData } from '../../../data/data-handler';
 
 export default async function ChartMenu() {
   const confdata = await getConfigData()
+
   const graphs: string[] = Object.keys(confdata)
   const pics = [temperaturepic, humiditypic, pressurepic, carbondioxidepic, vocpic, pm25pic ]
 

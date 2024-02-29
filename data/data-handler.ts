@@ -1,6 +1,9 @@
 'use server'
 import { faker } from "@faker-js/faker";
 import fs from "fs";
+import connectMongoDB from "@lib/mongodb";
+import { Temperature, Humidity, Pressure, CO2, PM } from "@lib/schemas";
+import mongoose from "mongoose";
 
 export async function getFakerData(datasetsnum: number, datanum: number){
     const datasets = []
@@ -15,54 +18,6 @@ export async function getFakerData(datasetsnum: number, datanum: number){
         datasets.push({label: label,data: data,borderColor: color,backgroundColor: color})
     }
     return datasets
-}
-
-export async function getJsonData(thing: string, start:string, end:string, type: string){
-    const starts = start.split("-").map((s)=>{return s}).join("-")
-    const ends = end.split("-").map((s)=>{return s}).join("-")
-
-    const jsonData = JSON.parse(fs.readFileSync(`./data/${thing.toLowerCase()}.json`, 'utf8'))
-
-    const keys = Object.keys(jsonData)
-    const s = keys.indexOf(starts)
-    const e = keys.indexOf(ends)
-    
-    if(s==-1||e==-1||s>e){
-        return []
-    }
-    
-    const slicedkeys = keys.slice(s,e+1)
-    
-    const data: {x:string, y:number}[] = []
-    switch(type){
-        case "EH":{
-            for(const date of slicedkeys){
-                for(let i=0; i<24; i++){
-                    data.push({x:`${date} ${i}:00`,y:parseFloat(jsonData[date]["values"][i.toString()])})
-                }
-            }
-            break
-        }
-        case "min":{
-            for(const date of slicedkeys){
-                data.push({x:`${date}`,y:parseFloat(jsonData[date]["min"])})
-            }
-            break
-        }
-        case "max":{
-            for(const date of slicedkeys){
-                data.push({x:`${date}`,y:parseFloat(jsonData[date]["max"])})
-            }
-            break
-        }
-        case "avg":{
-            for(const date of slicedkeys){
-                data.push({x:`${date}`,y:parseFloat(jsonData[date]["avg"])})
-            }
-            break
-        }
-    }
-    return data;
 }
 
 export async function getTodayJsonData(thing: string){
@@ -93,4 +48,47 @@ export async function getTodayJsonData(thing: string){
 export async function getConfigData(){
     const jsonData: {[key: string]: { heading: string, article: string }} = JSON.parse(fs.readFileSync(`./data/config.json`, 'utf8'))
     return jsonData
+}
+
+export async function getMongoData(thing: string, fdate: string, ldate:string, type:string){
+    const schemas: { [key: string]: mongoose.Model<any, {}, {}, {}, any, any> } = {"temperature": Temperature, "humidity": Humidity, "pressure": Pressure, "co2": CO2, "pm": PM}
+
+    await connectMongoDB()
+    
+    var fields = {}
+    switch(type){
+        case "EH":{
+            fields = { values:1}
+            break
+        }
+        case "min":{
+            fields = { min:1 }
+            break
+        }
+        case "max":{
+            fields = { max:1 }
+            break
+        }
+        case "avg":{
+            fields = { avg:1 }
+            break
+        }
+    }
+    
+    const mongoData  = await schemas[thing].find({ "date": { $gte: fdate, $lte: ldate } }, { date:1, ...fields, _id:0 })
+    console.log(mongoData)
+
+    const data: { x: any, y: any }[] = []
+    mongoData.map((unit)=>{
+        if(type == "EH"){
+            unit.values.forEach((value:string, hour:string)=>{
+               data.push({x:`${unit.date} ${hour}:00`, y:value})
+            })
+        }
+        else{
+            data.push({x:unit.date, y:unit[`${type}`]})
+        }
+    })
+    console.log(data)
+    return data
 }

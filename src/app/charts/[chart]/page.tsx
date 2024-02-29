@@ -1,7 +1,6 @@
 "use server";
-import TestChart from "../../../components/Chart"
-import { getConfigData } from '../../../../data/data-handler';
-import Radio from "../../../components/Radio"
+import { getConfigData, getMongoData } from '@data/data-handler';
+import Radio from "@components/Radio"
 type Params = {
     params: {
         chart: string
