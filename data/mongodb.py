@@ -1,16 +1,20 @@
 from pymongo import MongoClient
+class Mongo:
+    def __init__(self):
+        self.client = MongoClient("mongodb+srv://raspberry_user:pi666@apfcluster.aadktdb.mongodb.net/")
+        self.db = self.client.vilo
+        self.collection = self.db["test_collection"]
 
-client = MongoClient("mongodb+srv://raspberry_user:pi666@apfcluster.aadktdb.mongodb.net/")
+    def insert_to_collection(self, collection, data: object):
+        self.db[collection].insert_one(data)
 
-db = client.vilo
-db.create_collection("test_collection")
-collection = db.test_collection
-
+# Testing
+# m = Mongo()
 
 # inserting document
-
-print(collection.insert_one({"user":"raspberry_user", "message":"test message"}))
+# m.insert_to_collection("test_collection", {"temperature": 1, "humidity":2, "pressure":3})
 
 # printing data from collection
-# for date in temperature_data.find():
-#     print(date)
+# for doc in m.collection.find():
+#     print(doc)
+

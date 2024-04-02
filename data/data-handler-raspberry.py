@@ -5,11 +5,6 @@ TPATH = "data/today.json"
 TEMPATH = "data/temperature.json"
 HUMPATH = "data/humidity.json"
 
-def flush_jsonfiles():
-    write_to_jsonfile(TPATH,{})
-    write_to_jsonfile(TEMPATH,{})
-    write_to_jsonfile(HUMPATH,{})
-
 def read_from_jsonfile(path):
     with open(path,"r") as r:
         jsondata: list = json.load(r)
@@ -60,6 +55,18 @@ def dearchive_last():
     for i,(t,h) in enumerate(list(zip(tvalues,hvalues))):
         add_new_data(TPATH,i,{"hum":h,"tem":t})
 
+# Testing
+# flush_jsonfiles()
+# for i in range(12):
+#     add_new_data(TPATH, i, {"tem":random.randint(0, 30),"hum":random.randint(40, 70)})
+
+# dearchive_last()
+# archive_data()
+
+def flush_jsonfiles():
+    write_to_jsonfile(TPATH,{})
+    write_to_jsonfile(TEMPATH,{})
+    write_to_jsonfile(HUMPATH,{})
 # Testing
 # flush_jsonfiles()
 # for i in range(12):

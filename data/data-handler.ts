@@ -2,7 +2,7 @@
 import { faker } from "@faker-js/faker";
 import fs from "fs";
 import connectMongoDB from "@lib/mongodb";
-import { Temperature, Humidity, Pressure, CO2, PM } from "@lib/schemas";
+import { Temperature, Humidity, Pressure, CO2, PM, TestData } from "@lib/schemas";
 import mongoose from "mongoose";
 
 export async function getFakerData(datasetsnum: number, datanum: number){
@@ -46,7 +46,7 @@ export async function getTodayJsonData(thing: string){
 }
 
 export async function getConfigData(){
-    const jsonData: {[key: string]: { heading: string, article: string }} = JSON.parse(fs.readFileSync(`./data/config.json`, 'utf8'))
+    const jsonData: {[key: string]: { heading: string, article: string }} = JSON.parse(fs.readFileSync(process.cwd() + '/data/config.json', 'utf8'))
     return jsonData
 }
 
@@ -91,4 +91,13 @@ export async function getMongoData(thing: string, fdate: string, ldate:string, t
     })
     console.log(data)
     return data
+}
+
+export async function getTestMongoData(thing: "temperature"|"humidity"|"pressure"){
+    await connectMongoDB()
+    const mongoData: {temperature: string, humidity: string, pressure: string}[] = await TestData.find({},{_id:0})
+    const d = mongoData.map((unit)=>{
+        return unit[thing]
+    })
+    return d
 }

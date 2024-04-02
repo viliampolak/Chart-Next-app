@@ -1,37 +1,19 @@
 import mongoose, { Schema } from 'mongoose'
 
-interface TemperatureValues {
-    [key: string]: string;
-}
-
-interface TemperatureData extends Document {
-    date: string;
-    values: TemperatureValues;
-    max: string;
-    min: string;
-    avg: string;
-}
 
 
-const TemperatureSchema = new Schema<TemperatureData>({
-    date: { type: String },
-    values: { type: Map, of: String },
-    max: { type: String },
-    min: { type: String },
-    avg: { type: String }
-}, { collection: "temperature_data", timestamps: true });
 
-// const temperatureSchema = new Schema(
-//     {
-//         values: {type: Map, of: String},
-//         max: String,
-//         min: String,
-//         avg: String
-//     },
-//     { collection: "temperature_data", timestamps: true })
+const TemperatureSchema = new Schema(
+    {
+        date: { type: String },
+        values: { type: Map, of: String },
+        max: { type: String },
+        min: { type: String },
+        avg: { type: String }
+    },
+    { collection: "temperature_data", timestamps: true });
 
 const Temperature = mongoose.models.Temperature ?? mongoose.model("Temperature", TemperatureSchema)
-
 export { Temperature }
 
 const humiditySchema = new Schema(
@@ -44,7 +26,6 @@ const humiditySchema = new Schema(
     { collection: "humidity_data", timestamps: true })
 
 const Humidity = mongoose.models.Humidity ?? mongoose.model("Humidity", humiditySchema)
-
 export { Humidity }
 
 const pressureSchema = new Schema(
@@ -57,7 +38,6 @@ const pressureSchema = new Schema(
     { collection: "pressure_data", timestamps: true })
 
 const Pressure = mongoose.models.Pressure ?? mongoose.model("Pressure", pressureSchema)
-
 export { Pressure }
 
 const co2Schema = new Schema(
@@ -70,7 +50,6 @@ const co2Schema = new Schema(
     { collection: "co2_data", timestamps: true })
 
 const CO2 = mongoose.models.CO2 ?? mongoose.model("CO2", co2Schema)
-
 export { CO2 }
 
 const pmSchema = new Schema(
@@ -83,5 +62,16 @@ const pmSchema = new Schema(
     { collection: "pm_data", timestamps: true })
 
 const PM = mongoose.models.PM ?? mongoose.model("PM", pmSchema)
-
 export { PM }
+
+const TestDataSchema = new Schema(
+    {
+        temperature: { type: String },
+        humidity: { type: String },
+        pressure: { type: String },
+        // add co2 and pm
+    },
+    { collection: "test_collection", timestamps: true });
+
+const TestData = mongoose.models.TestData ?? mongoose.model("TestData", TestDataSchema)
+export { TestData }
