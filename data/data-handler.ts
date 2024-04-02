@@ -46,7 +46,7 @@ export async function getTodayJsonData(thing: string){
 }
 
 export async function getConfigData(){
-    const jsonData: {[key: string]: { heading: string, article: string }} = JSON.parse(fs.readFileSync(process.cwd() + '/data/config.json', 'utf8'))
+    const jsonData: {[key: string]: { heading: string, article: string }} = JSON.parse(fs.readFileSync(process.cwd() + `/data/config.json`, 'utf8'))
     return jsonData
 }
 
