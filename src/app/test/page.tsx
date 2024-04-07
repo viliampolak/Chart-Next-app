@@ -99,7 +99,7 @@ export  default async function Test() {
         scales: {
             y: {
             min: Math.floor(Math.min(...cdata.map(item => item.y-100))/100)*100, // Set minimum value of y-axis
-            max: Math.ceil(Math.max(...cdata.map(item => item.y-100))/100)*100 // Set maximum value of y-axis
+            max: Math.ceil(Math.max(...cdata.map(item => item.y+100))/100)*100 // Set maximum value of y-axis
             }
         }
     }
