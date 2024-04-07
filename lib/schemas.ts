@@ -69,7 +69,8 @@ const TestDataSchema = new Schema(
         temperature: { type: String },
         humidity: { type: String },
         pressure: { type: String },
-        // add co2 and pm
+        co2: { type: String },
+        // add pm
     },
     { collection: "test_collection", timestamps: true });
 

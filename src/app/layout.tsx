@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang="en">
-      <body className="bg-slate-50 dark:bg-sky-950">
+      <body> {/*className="bg-slate-50 dark:bg-sky-950"*/}
         <Nav/>
         <main className="flex flex-col items-center">
           {children}

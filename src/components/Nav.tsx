@@ -11,13 +11,13 @@ export default function Nav() {
                 <div className="hidden w-full md:block md:w-auto" id="navbar-dropdown">
                     <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-sky-700 rounded-lg bg-sky-700 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-sky-700 dark:bg-blue-600 md:dark:bg-blue-600 dark:border-gray-700">
                         <li>
-                            <a href="/" className="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent md:text-white md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent" aria-current="page">Home</a>
+                            <a href="/" className="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent md:hover:text-blue-700 md:text-white md:p-0" aria-current="page">Home</a>
                         </li>
                         <li>
-                        <a href="/charts" className="block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Charts</a>
+                        <a href="/charts" className="block py-2 pl-3 pr-4 text-white rounded md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Charts</a>
                         </li>
                         <li>
-                            <a href="/compare-chart" className="block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Comparing Chart</a>
+                            <a href="/compare-chart" className="block py-2 pl-3 pr-4 text-white rounded md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Comparing Chart</a>
                         </li>
                     </ul>
                 </div>

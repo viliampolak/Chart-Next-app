@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+import datetime
 class Mongo:
     def __init__(self):
         self.client = MongoClient("mongodb+srv://raspberry_user:pi666@apfcluster.aadktdb.mongodb.net/")
@@ -11,10 +12,9 @@ class Mongo:
 # Testing
 # m = Mongo()
 
-# inserting document
-# m.insert_to_collection("test_collection", {"temperature": 1, "humidity":2, "pressure":3})
+# inserting data
+# m.insert_to_collection()
 
 # printing data from collection
 # for doc in m.collection.find():
 #     print(doc)
-

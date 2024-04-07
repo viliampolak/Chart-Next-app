@@ -93,9 +93,9 @@ export async function getMongoData(thing: string, fdate: string, ldate:string, t
     return data
 }
 
-export async function getTestMongoData(thing: "temperature"|"humidity"|"pressure"){
+export async function getTestMongoData(thing: "temperature"|"humidity"|"pressure"|"co2"){
     await connectMongoDB()
-    const mongoData: {temperature: string, humidity: string, pressure: string}[] = await TestData.find({},{_id:0})
+    const mongoData: {temperature: string, humidity: string, pressure: string, co2: string}[] = await TestData.find({},{_id:0})
     const d = mongoData.map((unit)=>{
         return unit[thing]
     })

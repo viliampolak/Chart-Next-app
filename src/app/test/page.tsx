@@ -14,8 +14,12 @@ export  default async function Test() {
     const pdata = (await getTestMongoData("pressure")).map((v,i)=>{
         return {x: (i+1).toString(), y:parseFloat(v)}
     })
+    
+    const cdata = (await getTestMongoData("co2")).map((v,i)=>{
+        return {x: (i+1).toString(), y:parseFloat(v)}
+    })
 
-    console.log(fdata,hdata,pdata)
+    console.log(fdata,hdata,pdata,cdata)
 
     // const scale = {
     //     y: {
@@ -81,6 +85,25 @@ export  default async function Test() {
         }
     }
     
+    const coptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top' as const,
+            },
+            title: {
+                display: true,
+                text: 'Chart.js Line Chart',
+            },
+        },
+        scales: {
+            y: {
+            min: Math.floor(Math.min(...cdata.map(item => item.y-100))/100)*100, // Set minimum value of y-axis
+            max: Math.ceil(Math.max(...cdata.map(item => item.y-100))/100)*100 // Set maximum value of y-axis
+            }
+        }
+    }
+    
     const fdataset = {
         label: "temperature",
         data: fdata,
@@ -101,11 +124,19 @@ export  default async function Test() {
         borderColor: "grey",
         backgroundColor: "grey"
     }
+
+    const cdataset = {
+        label: "pressure",
+        data: cdata,
+        borderColor: "grey",
+        backgroundColor: "grey"
+    }
     return (
         <div>
             <TestChart options={foptions} labels={[]} datasets={[fdataset]} width={900} height={500}></TestChart>
             <TestChart options={hoptions} labels={[]} datasets={[hdataset]} width={900} height={500}></TestChart>
             <TestChart options={poptions} labels={[]} datasets={[pdataset]} width={900} height={500}></TestChart>
+            <TestChart options={coptions} labels={[]} datasets={[cdataset]} width={900} height={500}></TestChart>
         </div>
     )
 }

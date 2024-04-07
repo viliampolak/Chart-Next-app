@@ -16,13 +16,13 @@ export default async function ChartMenu() {
   const confdata = await getConfigData()
 
   const graphs: string[] = Object.keys(confdata)
-  const pics = [temperaturepic, humiditypic, pressurepic, carbondioxidepic, vocpic, pm25pic ]
+  const pics = [temperaturepic, humiditypic, pressurepic, carbondioxidepic, pm25pic,vocpic, ]
 
   return (
     <main className="flex flex-col items-center">
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-10">
       {graphs.map((graph,index) => (
-        <div key={confdata[graph]["heading"]} className="bg-white p-4 px-20 rounded-md shadow-md text-center">
+        <div key={confdata[graph]["heading"]} className="bg-white dark:bg-sky-800 p-4 px-20 rounded-md shadow-md text-center">
           <div className="mb-2">
             <Image src={pics[index]} width={100} height={100} alt="" className="mx-auto mx-20 my-10" />
           </div>
