@@ -16,65 +16,20 @@ export default function CompareChart() {
     const [p, setParams] = useState("")
     const [datasets, setDatasets] = useState<Dataset[]>([])
     const [labels, setLabels] = useState<string[]>([])
-    // const [lmin,setLmin] = useState("")
-    // const [lmax,setLmax] = useState("")
 
-    // `${data.thing}-${data.radio}-${data.from}-${data.to}-${data.color}`
     useEffect(() => {
-        const setlabels = (datas: {x: string, y: number}[][]) => {
-            console.log("datas in func setlabels : ",datas)
-            let fdt = ""
-            let ldt = ""
-            datas.map((data)=>{
-                if(fdt == ""){ fdt = data[0]["x"] }
-                else{ 
-                    if(Date.parse(fdt)>Date.parse(data[0]["x"])){ 
-                        fdt = data[0]["x"]
-                    }
-                }
-            })
-            datas.map((data)=>{
-                let sus = data.slice(-1)[0]["x"]
-                if(ldt == ""){ ldt = sus }
-                else{ 
-                    if(Date.parse(ldt)<Date.parse(sus)){ 
-                        ldt = sus
-                    }
-                }
-            })
-            const [fd,ft] = fdt.split(" ")
-            const [ld,lt] = ldt.split(" ")
-            console.log("fdtldt: ", fdt,ldt)
-            console.log("fdftldlt: ", fd,ft,ld,lt)
-
-            if(fdt!=undefined && ldt!=undefined){
-            const [fdate, ldate] = [fd.split("-").map((str)=>{return parseInt(str)}), ld.split("-").map((str)=>{return parseInt(str)})]
-            const [ftime, ltime] = [parseInt(ft.split(":")[0]), parseInt(lt.split(":")[0])]
-
-            console.log(fdate[0],fdate[1],fdate[2],ftime)
-            console.log(ldate[0],ldate[1],ldate[2],ltime)
-            
-            const l: string[] = []
-            for(let year=fdate[0], month=fdate[1], day=fdate[2];day<=ldate[2];day++){
-                for(let hour=ftime;hour<24||(day==ldate[1]&&hour<=ltime);hour++){
-                    labels.push(`${year}-${month}-${day} ${hour}:00`)
-                }
-            }
-            return l
-            }
-            else{return ["0"]}
-        }
-
         const fetchData = async (p: string) => {
-            const [thing,radio,from,to,color] = p.split(",")
-            console.log(p)
-            const data = await getMongoData(thing, from, to, radio) // TODO aby sa mohli zadata hocijake casy
-            console.log(data)
+            const [thing,date,color] = p.split(",")
+            console.log(thing, date, color)
+            const data = await getMongoData(thing, date, date, "EH") // TODO aby sa mohli zadata hocijake casy
+            const d = data.map((u,i)=>{
+                return {x: String(i), y: u.y}
+            })
+            console.log(d)
 
-            setDatasets([...datasets, {label: thing, data: data, borderColor: color, backgroundColor: color}])//TODO kvoli labels pridat casi k zaznamom
-            // setLabels(setlabels(datasets.map((d)=>{return d.data})))
-            console.log(datasets)
-
+            setDatasets([...datasets, {label: `${thing} ${date}`, data: d, borderColor: color, backgroundColor: color}])//TODO kvoli labels pridat casi k zaznamom
+            const numbersArray: string[] = Array.from({ length: 24 }, (_, index) => String(index));
+            setLabels(numbersArray)
         }
 
         const deleteData = (i: number) => {
@@ -82,7 +37,6 @@ export default function CompareChart() {
             console.log(`Deleted dataset ${i}`)
             setDatasets(da)
             console.log(datasets.map((d)=>{return d.data}))
-            // setLabels(setlabels())
         }
 
         const pa = p.split("?")
@@ -100,11 +54,7 @@ export default function CompareChart() {
         plugins: {
             legend: {
                 position: 'top' as const,
-            },
-            title: {
-                display: true,
-                text: 'Chart.js Line Chart',
-            },
+            }
         },
     }
 

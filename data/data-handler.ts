@@ -2,7 +2,7 @@
 import { faker } from "@faker-js/faker";
 import fs from "fs";
 import connectMongoDB from "@lib/mongodb";
-import { Temperature, Humidity, Pressure, CO2, PM, TestData } from "@lib/schemas";
+import { Temperature, Humidity, Pressure, CO2, PM, TestData, Today } from "@lib/schemas";
 import mongoose from "mongoose";
 
 export async function getFakerData(datasetsnum: number, datanum: number){
@@ -18,6 +18,11 @@ export async function getFakerData(datasetsnum: number, datanum: number){
         datasets.push({label: label,data: data,borderColor: color,backgroundColor: color})
     }
     return datasets
+}
+
+export async function getConfigData(){
+    const jsonData: {[key: string]: { heading: string, article: string }} = JSON.parse(fs.readFileSync(process.cwd() + `/data/config.json`, 'utf8'))
+    return jsonData
 }
 
 export async function getTodayJsonData(thing: string){
@@ -45,9 +50,45 @@ export async function getTodayJsonData(thing: string){
     return data
 }
 
-export async function getConfigData(){
-    const jsonData: {[key: string]: { heading: string, article: string }} = JSON.parse(fs.readFileSync(process.cwd() + `/data/config.json`, 'utf8'))
-    return jsonData
+export async function getTodayMongoData(thing: string){
+    const data: {x:string, y:number}[] = []
+
+    await connectMongoDB()
+
+    const d = new Date()
+    const date = `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`
+    if(thing=="temperature"){
+        const mongoData = await Today.find({}, {"hour":1,"tem":1})
+        mongoData.map((u) => {
+            data.push({x:`${date} ${u.hour}:00`,y: parseInt(u.tem)})
+            })
+    }
+    else if(thing=="humidity"){
+        const mongoData = await Today.find({}, {"hour":1,"hum":1})
+        mongoData.map((u) => {
+        data.push({x:`${date} ${u.hour}:00`,y: parseInt(u.hum)})
+        })
+    }
+    else if(thing=="pressure"){
+        const mongoData = await Today.find({}, {"hour":1,"press":1})
+        mongoData.map((u) => {
+        data.push({x:`${date} ${u.hour}:00`,y: parseInt(u.press)})
+        })
+    }
+    else if(thing=="co2"){
+        const mongoData = await Today.find({}, {"hour":1,"co2":1})
+        mongoData.map((u) => {
+        data.push({x:`${date} ${u.hour}:00`,y: parseInt(u.co2)})
+        })
+    }
+    else if(thing=="pm"){
+        const mongoData = await Today.find({}, {"hour":1,"pm":1})
+        mongoData.map((u) => {
+        data.push({x:`${date} ${u.hour}:00`,y: parseInt(u.pm["2_5"])})
+        })
+    }
+
+    return data
 }
 
 export async function getMongoData(thing: string, fdate: string, ldate:string, type:string){

@@ -9,20 +9,24 @@ type Params = {
 
 type FormData = {
     thing: string
-    radio: string
-    from: string
-    to: string
+    // radio: string
+    date: string
     color:string
 }
 
 export default function AddDatasetForm(params: Params){
     const { register, handleSubmit } = useForm<FormData>()
+    const [ alert, setAlert ] = useState(false)
+
     const onSubmit = handleSubmit(async (data) => {
-        // console.log(data.thing, data.radio, data.from, data.to, data.color)
-        if(data.from !="" && data.to !=""){
-            params.setParams(`f?${data.thing},${data.radio},${data.from},${data.to},${data.color}`)            
+        console.log(data.thing, data.date, data.color)
+        const cd = new Date()
+        cd.setHours(0,0,0,0)
+        if(data.date != "" && new Date(data.date) < cd){
+            setAlert(false)
+            params.setParams(`f?${data.thing.toLowerCase()},${data.date},${data.color}`)            
         }
-        else{console.log("Wrong date values")}
+        else{setAlert(true)}
     })
 
     return(
@@ -41,7 +45,7 @@ export default function AddDatasetForm(params: Params){
                                 <option>PM particles</option> */}
                             </select>
                         </div>
-                        <div className="flex flex-row flex-wrap mb-4">
+                        {/* <div className="flex flex-row flex-wrap mb-4">
                             <div className="flex items-center w-1/3">
                                 <input id="HL" type="radio" value="HL" {...register('radio')} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 dark:bg-gray-700 dark:border-gray-600" />
                                 <label htmlFor="HL" className="ms-2 text-sm font-normal text-gray-900 dark:text-gray-300">Highest Lowest</label>
@@ -54,21 +58,25 @@ export default function AddDatasetForm(params: Params){
                                 <input id="AVG" type="radio" value="AVG" {...register('radio')} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 dark:bg-gray-700 dark:border-gray-600" />
                                 <label htmlFor="AVG" className="ms-2 text-sm font-normal text-gray-900 dark:text-gray-300">Average of the Day</label>
                             </div>
-                        </div>
+                        </div> */}
                         <div className="mb-4">
-                            <label htmlFor="start" className="mr-6">Start date:</label>
-                            <input type="date" id="from" {...register('from')}/>
+                            <label htmlFor="start" className="mr-6">Date:</label>
+                            <input type="date" id="date" {...register('date')}/>
                         </div>
-                        <div className="mb-4">
+                        {/* <div className="mb-4">
                             <label htmlFor="start" className="mr-6">End date:</label>
                             <input type="date" id="to" {...register('to')} />
-                        </div>
+                        </div> */}
                         <div className="mb-4">
                             <label htmlFor="colorpicker">Color Picker:</label>
                             <input type="color" id="colorpicker" {...register('color')} />
                         </div>
                         <div className="mb-4"><input type="submit" value="Add" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" /></div>
                     </form>
+                    <div className={`bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative ${alert ? "visible":"invisible"}`} role="alert">
+                        <strong className="font-bold mr-2">Error</strong>
+                        <span className="block sm:inline">Invalid date</span>
+                    </div>
     </div>
         
     )

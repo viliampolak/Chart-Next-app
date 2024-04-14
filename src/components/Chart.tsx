@@ -1,6 +1,6 @@
 'use client'
 
-import { Chart as ChartJS, CategoryScale, LinearScale, Tooltip, PointElement, LineElement } from "chart.js"
+import { Chart as ChartJS, CategoryScale, LinearScale, Tooltip, PointElement, LineElement, Legend } from "chart.js"
 import { Line } from "react-chartjs-2"
 
 ChartJS.register(
@@ -8,7 +8,8 @@ ChartJS.register(
   LinearScale,
   PointElement,
   LineElement,
-  Tooltip
+  Tooltip,
+  Legend
 );
 
 type Dataset = {

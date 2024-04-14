@@ -15,7 +15,7 @@ export default function DatasetsList(props: Props) {
             <p className="text-gray-600 text-center mb-6">Enter your details to register.</p>
             <ul>
                 { props.datasets.map((dataset,i) => (
-                    <li key={i}>{dataset} {i}<button onClick={() => deleteDataset(i)}>Delete</button></li>))
+                    <li key={i}>{dataset.charAt(0).toUpperCase() + dataset.slice(1)}<button className="border p-1 ml-2 rounded-md" onClick={() => deleteDataset(i)}>Delete</button></li>))
                 }
             </ul>
         </div>

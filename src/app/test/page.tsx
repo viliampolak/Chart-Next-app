@@ -21,24 +21,9 @@ export  default async function Test() {
 
     console.log(fdata,hdata,pdata,cdata)
 
-    // const scale = {
-    //     y: {
-    //     min: Math.round(Math.min(...fdata.map(item => item.y-5))), // Set minimum value of y-axis
-    //     max: Math.round(Math.max(...fdata.map(item => item.y+5))) // Set maximum value of y-axis
-    //     }
-    // }
-
     const foptions = {
         responsive: true,
-        plugins: {
-            legend: {
-                position: 'top' as const,
-            },
-            title: {
-                display: true,
-                text: 'Chart.js Line Chart',
-            },
-        },
+        plugins: {},
         scales: {
             y: {
             min: Math.round(Math.min(...fdata.map(item => item.y-5)))%2==1 ? Math.round(Math.min(...fdata.map(item => item.y-5)))+1 : Math.round(Math.min(...fdata.map(item => item.y-5))), // Set minimum value of y-axis
@@ -49,15 +34,7 @@ export  default async function Test() {
 
     const hoptions = {
         responsive: true,
-        plugins: {
-            legend: {
-                position: 'top' as const,
-            },
-            title: {
-                display: true,
-                text: 'Chart.js Line Chart',
-            },
-        },
+        plugins: {},
         scales: {
             y: {
             min: Math.floor(Math.min(...hdata.map(item => item.y-10))/10)*10, // Set minimum value of y-axis
@@ -68,15 +45,7 @@ export  default async function Test() {
 
     const poptions = {
         responsive: true,
-        plugins: {
-            legend: {
-                position: 'top' as const,
-            },
-            title: {
-                display: true,
-                text: 'Chart.js Line Chart',
-            },
-        },
+        plugins: {},
         scales: {
             y: {
             min: Math.round(Math.min(...pdata.map(item => item.y-30))/10)*10, // Set minimum value of y-axis
@@ -87,19 +56,11 @@ export  default async function Test() {
     
     const coptions = {
         responsive: true,
-        plugins: {
-            legend: {
-                position: 'top' as const,
-            },
-            title: {
-                display: true,
-                text: 'Chart.js Line Chart',
-            },
-        },
+        plugins: {},
         scales: {
             y: {
             min: Math.floor(Math.min(...cdata.map(item => item.y-100))/100)*100, // Set minimum value of y-axis
-            max: Math.ceil(Math.max(...cdata.map(item => item.y-100))/100)*100 // Set maximum value of y-axis
+            max: Math.ceil(Math.max(...cdata.map(item => item.y+100))/100)*100 // Set maximum value of y-axis
             }
         }
     }
