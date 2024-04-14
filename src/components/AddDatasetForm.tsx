@@ -32,17 +32,15 @@ export default function AddDatasetForm(params: Params){
     return(
     <div>
         <h2 className="text-xl font-semibold text-center mb-4">Add new dataset to graph</h2>
-        <p className="text-gray-600 text-center mb-6">Enter your details to register.</p>
+        <p className="text-gray-600 dark:text-white text-center mb-6">Enter your details to register.</p>
         <form onSubmit={onSubmit}>
                         <div className="mb-4">
-                            <label htmlFor="thing" className="block text-gray-700 text-sm font-semibold mb-2"></label>
-                            <select id="thing" {...register('thing')} className="border p-2 rounded w-full">
+                            <select id="thing" {...register('thing')} className="border p-2 rounded w-full dark:bg-sky-800">
                                 <option>Temperature</option>
                                 <option>Humidity</option>
-                                {/* <option>CO2 concetration</option>
-                                <option>VOC gas</option>
                                 <option>Athmosferic preassure</option>
-                                <option>PM particles</option> */}
+                                <option>CO2 concetration</option>
+                                <option>PM particles</option>
                             </select>
                         </div>
                         {/* <div className="flex flex-row flex-wrap mb-4">
@@ -60,16 +58,16 @@ export default function AddDatasetForm(params: Params){
                             </div>
                         </div> */}
                         <div className="mb-4">
-                            <label htmlFor="start" className="mr-6">Date:</label>
-                            <input type="date" id="date" {...register('date')}/>
+                            <label htmlFor="date" className="mr-6">Date:</label>
+                            <input className="dark:bg-sky-800 border px-2" type="date" id="date" {...register('date')}/>
                         </div>
                         {/* <div className="mb-4">
                             <label htmlFor="start" className="mr-6">End date:</label>
                             <input type="date" id="to" {...register('to')} />
                         </div> */}
                         <div className="mb-4">
-                            <label htmlFor="colorpicker">Color Picker:</label>
-                            <input type="color" id="colorpicker" {...register('color')} />
+                            <label htmlFor="colorpicker" className="mr-2">Color Picker:</label>
+                            <input className="dark:bg-sky-800" type="color" id="colorpicker" {...register('color')} />
                         </div>
                         <div className="mb-4"><input type="submit" value="Add" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" /></div>
                     </form>

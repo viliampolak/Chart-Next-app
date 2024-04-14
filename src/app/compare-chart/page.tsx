@@ -66,7 +66,7 @@ export default function CompareChart() {
                 <div className="flex flex-col items-center m-10">
                     <TestChart options={options} labels={labels} datasets={datasets} width={900} height={500}></TestChart>
                 </div>
-                <div className="bg-white p-8 rounded-lg shadow-lg">
+                <div className="bg-white dark:bg-sky-800 p-8 rounded-lg shadow-lg">
                     <AddDatasetForm setParams={setParams}></AddDatasetForm>
                 </div>
             </div>
