@@ -99,19 +99,19 @@ export async function getMongoData(thing: string, fdate: string, ldate:string, t
     var fields = {}
     switch(type){
         case "EH":{
-            fields = { values:1}
+            if(thing!="pm"){ fields = { values:1 } }else{ fields = { "values.'2_5'":1} }
             break
         }
         case "min":{
-            fields = { min:1 }
+            if(thing!="pm"){ fields = { min:1 } }else{ fields = { min2_5:1 } }
             break
         }
         case "max":{
-            fields = { max:1 }
+            if(thing!="pm"){ fields = { max:1 } }else{ fields = { max2_5:1 } }
             break
         }
         case "avg":{
-            fields = { avg:1 }
+            if(thing!="pm"){ fields = { avg:1 } }else{ fields = { avg2_5:1 } }
             break
         }
     }
@@ -127,10 +127,49 @@ export async function getMongoData(thing: string, fdate: string, ldate:string, t
             })
         }
         else{
-            data.push({x:unit.date, y:unit[`${type}`]})
+            if(thing!="pm"){ data.push({x:unit.date, y:unit[`${type}`]}) }
+            else{ data.push({x:unit.date, y:unit[`${type}2_5`]}) }
+            
         }
     })
     console.log(data)
+    return data
+}
+
+export async function getPmMongoData(fdate: string, ldate:string, type:string){
+    await connectMongoDB()
+    var fields = {}
+    switch(type){
+        case "EH":{
+            fields = { values:1}
+            break
+        }
+        case "min":{
+            fields = { min1:1, min2_5:1, min10:1 }
+            break
+        }
+        case "max":{
+            fields = { max1:1, max2_5:1, max10:1 }
+            break
+        }
+        case "avg":{
+            fields = { avg1:1, avg2_5:1, avg10:1 }
+            break
+        }
+    }
+    const mongoData  = await PM.find({ "date": { $gte: fdate, $lte: ldate } }, { date:1, ...fields, _id:0 })
+    console.log(mongoData)
+    const data: { x: any, y: any }[] = []
+    mongoData.map((unit)=>{
+        if(type == "EH"){
+            unit.values.forEach((value:object, hour:string)=>{
+               data.push({x:`${unit.date} ${hour}:00`, y:value})
+            })
+        }
+        else{
+            data.push({x:unit.date, y:unit[`avg2_5`]})
+        }
+    })
     return data
 }
 

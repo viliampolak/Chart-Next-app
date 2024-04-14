@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react';
-import { getTodayJsonData, getMongoData, getTodayMongoData } from '@data/data-handler';
+import { getTodayJsonData, getMongoData, getTodayMongoData, getPmMongoData } from '@data/data-handler';
 import TestChart from "./Chart"
 
 type Props = {
