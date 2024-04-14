@@ -25,7 +25,7 @@ radio.openReadingPipe(1, [0xF0, 0xF0, 0xF0, 0xF0, 0xE1])
 radio.printDetails()
 radio.startListening()
 radio.powerUp()
-data = {"temperature": None, "humidity":None, "pressure":None} # add co2, pm
+data = {"temperature": None, "humidity":None, "pressure":None, "pm1":None, "pm2_5": None, "pm10":None}
 try:
     while True:
         start = time.time()
@@ -46,6 +46,12 @@ try:
             data["humidity"] = message["hum"]
         elif "pres" in message.keys():
             data["pressure"] = message["pres"]
+        elif "pm1" in message.keys():
+            data["pm1"] = message["pm1"]
+        elif "pm2_5" in message.keys():
+            data["pm2_5"] = message["pm2_5"]
+        elif "pm10" in message.keys():
+            data["pm10"] = message["pm10"]
             if all(data.values()):
                 print("Added data to mongoDB ", data)
                 m.insert_to_collection("test_collection", data)
