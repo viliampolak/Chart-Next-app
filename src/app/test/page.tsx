@@ -37,23 +37,23 @@ export  default async function Test() {
     const hoptions = {
         responsive: true,
         plugins: {},
-        scales: {
-            y: {
-            min: Math.floor(Math.min(...hdata.map(item => item.y-10))/10)*10, // Set minimum value of y-axis
-            max: Math.ceil(Math.max(...hdata.map(item => item.y+10))/10)*10 // Set maximum value of y-axis
-            }
-        }
+        // scales: {
+        //     y: {
+        //     min: Math.floor(Math.min(...hdata.map(item => item.y-10))/10)*10, // Set minimum value of y-axis
+        //     max: Math.ceil(Math.max(...hdata.map(item => item.y+10))/10)*10 // Set maximum value of y-axis
+        //     }
+        // }
     }
 
     const poptions = {
         responsive: true,
         plugins: {},
-        scales: {
-            y: {
-            min: Math.round(Math.min(...pdata.map(item => item.y-30))/10)*10, // Set minimum value of y-axis
-            max: Math.round(Math.max(...pdata.map(item => item.y+30))/10)*10 // Set maximum value of y-axis
-            }
-        }
+        // scales: {
+        //     y: {
+        //     min: Math.round(Math.min(...pdata.map(item => item.y-30))/10)*10, // Set minimum value of y-axis
+        //     max: Math.round(Math.max(...pdata.map(item => item.y+30))/10)*10 // Set maximum value of y-axis
+        //     }
+        // }
     }
     
     // const coptions = {

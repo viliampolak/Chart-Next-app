@@ -8,8 +8,7 @@ ChartJS.register(
   LinearScale,
   PointElement,
   LineElement,
-  Tooltip,
-  Legend
+  Tooltip
 );
 
 type Dataset = {

@@ -9,8 +9,8 @@ export default function Home() {
         <h1 className="text-6xl font-semibold mb-10">Meteorological Station</h1> {/*text-gray-800*/}
         <p className="text-2xl">Stay informed about the weather</p>{/*text-gray-600*/}
       </header>
-
         <p className="text-xl mb-4">Welcome to our meteorological station website.</p>
+        <p className="text-xl mb-4">This site is part of graduation project by Viliam Polak.</p>
         <p className="text-xl mb-4">Here you can delve into a treasure trove of historical weather data, unlocking insights into temperature fluctuations, humidity levels, and Particulate Matter concentrations spanning various timeframes. Whether you're a weather enthusiast, a researcher, or simply curious about past weather patterns, our extensive database awaits your exploration.</p>
         <p className="text-xl">Our user-friendly interface allows you to navigate through the years effortlessly, visualizing data trends and patterns through interactive graphs and charts. Whether you're interested in comparing seasonal variations or tracking long-term climate trends, our platform empowers you to analyze the past to better understand the present and anticipate the future.</p>
         <p className="text-xl">Thank you for visiting us!</p> {/*text-gray-700*/}
