@@ -15,11 +15,11 @@ export  default async function Test() {
         return {x: (i+1).toString(), y:parseFloat(v)}
     })
     
-    const cdata = (await getTestMongoData("co2")).map((v,i)=>{
-        return {x: (i+1).toString(), y:parseFloat(v)}
-    })
+    // const cdata = (await getTestMongoData("co2")).map((v,i)=>{
+    //     return {x: (i+1).toString(), y:parseFloat(v)}
+    // })
 
-    console.log(fdata,hdata,pdata,cdata)
+    console.log(fdata,hdata,pdata)
 
     const foptions = {
         responsive: true,
@@ -54,16 +54,16 @@ export  default async function Test() {
         }
     }
     
-    const coptions = {
-        responsive: true,
-        plugins: {},
-        scales: {
-            y: {
-            min: Math.floor(Math.min(...cdata.map(item => item.y-100))/100)*100, // Set minimum value of y-axis
-            max: Math.ceil(Math.max(...cdata.map(item => item.y+100))/100)*100 // Set maximum value of y-axis
-            }
-        }
-    }
+    // const coptions = {
+    //     responsive: true,
+    //     plugins: {},
+    //     scales: {
+    //         y: {
+    //         min: Math.floor(Math.min(...cdata.map(item => item.y-100))/100)*100, // Set minimum value of y-axis
+    //         max: Math.ceil(Math.max(...cdata.map(item => item.y+100))/100)*100 // Set maximum value of y-axis
+    //         }
+    //     }
+    // }
     
     const fdataset = {
         label: "temperature",
@@ -86,18 +86,18 @@ export  default async function Test() {
         backgroundColor: "grey"
     }
 
-    const cdataset = {
-        label: "pressure",
-        data: cdata,
-        borderColor: "grey",
-        backgroundColor: "grey"
-    }
+    // const cdataset = {
+    //     label: "pressure",
+    //     data: cdata,
+    //     borderColor: "grey",
+    //     backgroundColor: "grey"
+    // }
     return (
         <div>
             <TestChart options={foptions} labels={[]} datasets={[fdataset]} width={900} height={500}></TestChart>
             <TestChart options={hoptions} labels={[]} datasets={[hdataset]} width={900} height={500}></TestChart>
             <TestChart options={poptions} labels={[]} datasets={[pdataset]} width={900} height={500}></TestChart>
-            <TestChart options={coptions} labels={[]} datasets={[cdataset]} width={900} height={500}></TestChart>
+            {/* <TestChart options={coptions} labels={[]} datasets={[cdataset]} width={900} height={500}></TestChart> */}
         </div>
     )
 }
