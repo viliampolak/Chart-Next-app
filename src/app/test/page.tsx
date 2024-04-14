@@ -24,12 +24,12 @@ export  default async function Test() {
     const foptions = {
         responsive: true,
         plugins: {},
-        scales: {
-            y: {
-            min: Math.round(Math.min(...fdata.map(item => item.y-5)))%2==1 ? Math.round(Math.min(...fdata.map(item => item.y-5)))+1 : Math.round(Math.min(...fdata.map(item => item.y-5))), // Set minimum value of y-axis
-            max: Math.round(Math.max(...fdata.map(item => item.y+5)))%2==1 ? Math.round(Math.max(...fdata.map(item => item.y+5)))-1 : Math.round(Math.max(...fdata.map(item => item.y+5))) // Set maximum value of y-axis
-            }
-        }
+        // scales: {
+        //     y: {
+        //     min: Math.round(Math.min(...fdata.map(item => item.y-5)))%2==1 ? Math.round(Math.min(...fdata.map(item => item.y-5)))+1 : Math.round(Math.min(...fdata.map(item => item.y-5))), // Set minimum value of y-axis
+        //     max: Math.round(Math.max(...fdata.map(item => item.y+5)))%2==1 ? Math.round(Math.max(...fdata.map(item => item.y+5)))-1 : Math.round(Math.max(...fdata.map(item => item.y+5))) // Set maximum value of y-axis
+        //     }
+        // }
     }
 
     const hoptions = {
